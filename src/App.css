@@ -1,15 +1,22 @@
-.App {
-  text-align: center;
-}
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
 
+}
+.App{
+  min-height: 100vh;
+  /* background-color: aqua; */
+}
 .App-logo {
-  height: 40vmin;
+  height: 30vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 5s linear;
+
   }
 }
 
@@ -35,4 +42,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.bg-aqua{
+  background-color: aqua;
+}
+.text-aqua{
+  color: aqua;
+}
+
+#alex-register:hover{
+  cursor: pointer;
+}
+
+.isloading{
+display: flex;
+  justify-content: center;
+
+  align-items: center;
+
 }

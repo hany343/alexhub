@@ -1,0 +1,21 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }
+.Sidebar{
+    height: 100%;
+    background-color: #282c34;
+    color: white;
+
+}
+CDBSidebarMenuItem:hover{
+  background-color: rgb(0, 0, 0) !important;
+}
+
+.bg-aqua{
+  background-color: aqua;
+}
+.text-aqua{
+  color: aqua;
+}
