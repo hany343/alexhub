@@ -9,10 +9,13 @@ import { AuthContext } from "../Contexts/AuthContext";
 import { Navigate, useNavigate }   from "react-router-dom";
 export default function Login() {
   
+  var loginUser={
+    'Login_Name':'',
+    'Password':''
+  }
     const [isLoading, setIsLoading]=useState(true)
     let {UserData,setUserData,UserIsLogedIn, setUserIsLogedIn}=useContext(AuthContext);
     const navigate = useNavigate();
-
     let formik =useFormik({
         initialValues:{
           loginName:'',
@@ -36,57 +39,41 @@ export default function Login() {
 
       async function login(){
         setIsLoading(true);
-        axios.get(`https://localhost:7165/api/Users/Login/${formik.values.loginName},${formik.values.password}`)
-        //axios.post(`https://api.lobridge.com/api/Emails/${formik.values.alexemail},${Codeformik.values.confirmationCode}`)
+        loginUser.Login_Name=formik.values.loginName;
+        loginUser.Password=formik.values.password;
+        axios.post(`http://localhost:5077/Users/Login`,loginUser)
         .then(async(result) => {
-            console.log(result.data.message)
-            
-            if(result.data.message==='Success'){
-                
-                console.log(result.data.userData)
-                
-                
+           console.log(result)
+            if(result.status==200){
                 setUserIsLogedIn(true)
-                console.log(UserIsLogedIn+' userlogiedin')
-                setUserData(result.data.userData)
-
-                this.setState({UserIsLogedIn: true});
-                this.setState({UserData: result.data.userData});
+                setUserData(result.data.value)
                 navigate('/Dashboard')
                
             }
             setIsLoading(false);
           })
         .catch(err => {
-           console.log(err)
+          console.log(err.response.data)
         })
         setIsLoading(false);
   
     }
    
+    useEffect(() => {
+      setIsLoading(false);
+     
+    }, []);
+
       useEffect(() => {
-        setIsLoading(false);
-        console.log("effect1");
-        console.log("isloged - "+UserIsLogedIn)
-         console.log("userdatadata ",UserData);
+        if(UserIsLogedIn){
+          console.log('logedsuccess')
+          localStorage.setItem('userkey', JSON.stringify(UserData));
+        }else{
+          console.log('logedfail')
+        }
        
-    
-      },[]);
-      useEffect(() => {
-         console.log("effect2");
-        console.log("isloged - "+UserIsLogedIn)
-         console.log("userdatadata ",UserData);
-       
-        localStorage.setItem('userkey', JSON.stringify(UserData));
       }, [UserIsLogedIn]);
 
-   useEffect(() => {
-     console.log("effect3");
-       console.log("isloged - "+UserIsLogedIn)
-         console.log("userdatadata ",UserData);
-       
-        localStorage.setItem('userkey', JSON.stringify(UserData));
-      });
 
 
     return (
@@ -120,7 +107,7 @@ export default function Login() {
                     <input value={formik.values.loginName} onBlur={formik.handleBlur} onChange={formik.handleChange} type="text" id="loginName" name="loginName" placeholder="User Name" className="form-control w-100 mt-2"/>
                     {formik.errors.loginName && formik.touched.loginName? <span className="text-danger fs-6 fw-lighter">{formik.errors.loginName}</span>:null}
                     
-                    <input value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} type="text" id="password" name="password" placeholder="Password" className="form-control w-100 mt-2"/>
+                    <input value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} type="password" id="password" name="password" placeholder="Password" className="form-control w-100 mt-2"/>
                     {formik.errors.password && formik.touched.password? <span className="text-danger">{formik.errors.password}</span>:null}
                     
                     <button type="submit" onClick={formik.handleSubmit} className="btn-primary text-bg-primary px-3 rounded shadow m-2 border-0 fs-5" 
