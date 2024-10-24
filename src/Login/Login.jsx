@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import logo from '../Assets/A512.png';
+import logo from '../Assets/result.png';
 import axios from 'axios'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -96,22 +96,22 @@ export default function Login() {
                 <img src={logo} className="App-logo my-3" alt="logo" />
                
 
-                <div className="rounded-3 text-center text-black d-block bg-aqua p-3">
-                    <h3>Welcome to AlexApp</h3>
+                <div className="rounded-3 text-center text-black d-block p-3">
+                    <h3 className="Text3D">Welcome to Alex Support Application</h3>
                 </div>
 
                 {
                     <>
-                    <div className="border-2  rounded-3 shadow-lg text-center p-3 bg-gradient my-3"> 
+                    <div className="border-2  rounded-3 shadow-lg text-center p-3 bg-gradient my-3 w-25"> 
                     
-                    <input value={formik.values.loginName} onBlur={formik.handleBlur} onChange={formik.handleChange} type="text" id="loginName" name="loginName" placeholder="User Name" className="form-control w-100 mt-2"/>
+                    <input value={formik.values.loginName} onBlur={formik.handleBlur} onChange={formik.handleChange} type="text" id="loginName" name="loginName" placeholder="User Name" className="form-control w-100 mt-2" style={{height:"50px" ,fontSize:'20px'}}/>
                     {formik.errors.loginName && formik.touched.loginName? <span className="text-danger fs-6 fw-lighter">{formik.errors.loginName}</span>:null}
                     
-                    <input value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} type="password" id="password" name="password" placeholder="Password" className="form-control w-100 mt-2"/>
+                    <input value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} type="password" id="password" name="password" placeholder="Password" className="form-control w-100 mt-2" style={{height:"50px" ,fontSize:'20px'}}/>
                     {formik.errors.password && formik.touched.password? <span className="text-danger">{formik.errors.password}</span>:null}
                     
-                    <button type="submit" onClick={formik.handleSubmit} className="btn-primary text-bg-primary px-3 rounded shadow m-2 border-0 fs-5" 
-                    style={{cursor:'pointer'}} id="login" >login</button>
+                    <button type="submit" onClick={formik.handleSubmit} className="btn btn-primary rounded shadow  border-0  w-100 mt-2 fw-bold" 
+                    style={{cursor:'pointer' ,height:'50px' ,fontSize:'26px'}} id="login" >Login <i class="bi bi-key-fill"></i></button>
                     
                     
                     </div>

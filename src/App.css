@@ -1,9 +1,17 @@
+
 *{
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
 
 }
+body {
+  background-color: #f4f4f4; /* Light gray background for contrast */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
 .App{
   min-height: 100vh;
   /* background-color: aqua; */
@@ -15,7 +23,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 5s linear;
+    animation: App-logo-spin infinite 1s ease-in-out;
+    height: 20%;
 
   }
 }
@@ -36,12 +45,15 @@
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  0% {
+    transform: translateY(0);
   }
-  to {
-    transform: rotate(360deg);
-  }
+  50% {
+    transform: translateY(20%);  }
+    100%{
+      transform: translateY(0);
+    }
+    
 }
 
 .bg-aqua{
@@ -54,11 +66,73 @@
 #alex-register:hover{
   cursor: pointer;
 }
-
+.Text3D{
+  font-family:'IconicStroke';
+  line-height:1em;
+  color:#fff9d6;
+  font-weight:bold;
+  font-size:38px;
+  text-shadow:0px 0px 0 rgb(173,173,173),0px 1px 0 rgb(101,101,101), 0px 2px 0 rgb(29,29,29),0px 3px 2px rgba(0,0,0,0),0px 3px 1px rgba(0,0,0,0.5),0px 0px 2px rgba(0,0,0,.2);
+}
 .isloading{
 display: flex;
   justify-content: center;
 
   align-items: center;
 
+}
+/* TicketCard.css */
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    padding: 70px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 20px;
+}
+
+.card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.ticket-count {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Open Tickets Card Styling */
+.open-ticket{
+    border-left: 5px solid #ff9800;  
+    background-color: rgb(8, 8, 151);
+}
+
+/* Closed Tickets Card Styling */
+.closed-ticket {
+    border-left: 5px solid #4caf50;
+}
+
+/* Assigned Tickets Card Styling */
+.assigned-ticket {
+    border-left: 5px solid #2196f3;
 }

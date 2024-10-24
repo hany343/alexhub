@@ -32,7 +32,7 @@ export default function Layout() {
                    
                 </div>
                 <div className="text-white text-center position-fixed w-100  fs-6 mb-1 bg-dark opacity-50" style={{zIndex:'1000!important',bottom:'0'}}>
-                    IAlex ticketing system for AlexApparels Team - Developer "Hany Ragab"</div>
+                    I Alex Ticketing System For AlexApparels Team - Developers " Hany Ragab , Abd EL-Rahman Khalaf "</div>
             </div>
 
         </>
