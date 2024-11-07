@@ -1,59 +1,85 @@
-import  { React,useContext, useEffect, useState } from 'react'
-import NewTicket from '../Tickets/NewTicket'
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthContext';
-import { Navigate, redirect } from 'react-router-dom';
 import TicketCard from '../components/TicketCard';
+import RecentActions from '../components/RecentActions';
 
 export default function Dashboard() {
-  let { UserData,UserIsLogedIn } = useContext(AuthContext);
-  const api_url = "https://localhost:7014/Tickets/Dashboard";
-  let [tickets, setTickets] = useState([]);
+  const { UserData, UserIsLogedIn } = useContext(AuthContext);
+  const api_url = "http://localhost:5077/Tickets/Dashboard";
   
+  const [tickets, setTickets] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetch(api_url)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok: " + res.statusText);
+    const fetchTickets = async () => {
+      try {
+        const response = await fetch(api_url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return res.json(); 
-      })
-      .then((data) => {
-        setTickets(data); 
-      })
-      .catch((error) => {
-        console.error("There was an issue with the fetch operation:", error);
-      });
-  }, []);
-   
-console.log();
+
+        const data = await response.json();
+        console.log(data);
+
+        if (data) {
+          setTickets(data);
+        }
+      } catch (error) {
+        console.error('Error fetching tickets:', error);
+        setError(error);
+        setTickets({});
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTickets();
+  }, [api_url]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching data: {error.message}</div>;
+  }
+
+  const openTicketsCount = tickets.openTickets;
+  const assignedTicketsCount = tickets.assignedTickets;
+  const closedTicketsCount = tickets.closedTickets;
+  const logs = tickets.logs || []; // Assuming logs is the name in your API response
+console.log(UserData)
   return (
     <>
-    {UserIsLogedIn?
-   <div className="container-fluid bg-dark text-white opacity-90 my-5 w- border-2 rounded-4" style={{boxShadow:'0px 0px 10px 2px grey',width:'95%'}}>
-   <h1>Dashboard</h1>
-   
-
-   <h1>Welcome <span className='text-aqua'>{UserData.fname}</span></h1>
-   <div>
-    {tickets.length === 0 ? (
-      <p>No tickets available.</p> // Message when there are no tickets
-    ) : (
-      <ul>
-        {tickets.map((ticket, index) => (
-          <li key={index}>{ticket.title}</li> // Replace with appropriate ticket property
-        ))}
-      </ul>
-    )}
-  </div>
- </div>
-      :
-      <Navigate to="/Login"/>
-    
-    }
-   <TicketCard />
-
-
+      {UserIsLogedIn ? (
+        <div className="Text3D dashboard" style={{ width: '90%', paddingLeft: "5%", paddingTop: "20px" }}>
+          <h1>Dashboard</h1>
+          <hr />
+          <div style={{ textAlign: "center" }}>
+            <h1>Welcome <span className='text-primary'>{UserData.value.fname}</span></h1>
+          </div>
+        </div>
+      ) : (
+        <Navigate to="/Login" />
+      )}
+      
+      <TicketCard 
+        OpenT={openTicketsCount} 
+        AssignedT={assignedTicketsCount} 
+        ClosedT={closedTicketsCount} 
+      />
+      <div className='TActions' style={{margin:"auto"}}> 
+        <RecentActions logs={logs} /> {/* Pass logs to RecentActions */}
+      </div>
     
     </>
-  )
+  );
 }

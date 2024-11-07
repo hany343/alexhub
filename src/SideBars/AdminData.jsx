@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
 
 export const AdminData = [
   {
@@ -24,6 +25,17 @@ export const AdminData = [
         icon: <IoIcons.IoIosPaper />
       }
     ]
+  },
+  {
+    title: 'New Ticket',
+    path: '/new-ticket',
+    icon: <IoIcons.IoMdCreate />
+  },
+  {
+    title: 'Assign Ticket',
+    path: '/assign-ticket',
+    icon: <IoMdCheckmarkCircleOutline />
+  
   },
   {
     title: 'Reports',
@@ -60,6 +72,11 @@ export const AdminData = [
     title: 'Team',
     path: '/Login',
     icon: <IoIcons.IoMdPeople />
+  },
+  {
+    title: 'Logout',
+    path: '/Logout', // Update this path as needed
+    icon: <IoIcons.IoMdLogOut />,
   },
   {
     title: 'Messages',

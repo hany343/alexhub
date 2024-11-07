@@ -9,14 +9,14 @@
             "request": "launch",
             "type": "msedge",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${alexhub}"
         },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${alexhub}"
         }
     ]
 }
